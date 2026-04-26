@@ -1,0 +1,23 @@
+rules_version = '2';
+
+// Task T-73: Medical Document Storage Security Rules
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Default rule: block all access
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // Users can only upload and read documents in their own dedicated folder
+    match /users/{userId}/documents/{fileName} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      // Allow write if the user is authenticated, matches the path ID, 
+      // and the file is under an acceptable size (e.g., 5MB) and is a PDF or Image.
+      allow write: if request.auth != null 
+                   && request.auth.uid == userId
+                   && request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*|application/pdf');
+    }
+  }
+}

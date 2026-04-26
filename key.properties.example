@@ -1,0 +1,8 @@
+# Android Release Signing Configuration
+# Copy this file to key.properties (gitignored) and fill in your values.
+# Generate a keystore: keytool -genkey -v -keystore lifeline.jks -keyalg RSA -keysize 2048 -validity 10000 -alias lifeline
+
+storeFile=../lifeline.jks
+storePassword=YOUR_KEYSTORE_PASSWORD
+keyAlias=lifeline
+keyPassword=YOUR_KEY_PASSWORD

@@ -1,0 +1,32 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default rule: block all access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Task T-72: Medical Profile Security Rules
+    // Users can only read and write their own documents
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      match /medical_profile/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Emergencies: Users can read their own emergencies, creation happens via Cloud Functions (admin)
+    // or by client (depending on implementation). Since initiateEmergency creates it, we only need read access.
+    // However, bystander flow silent trigger might add it via client if we used direct write,
+    // but in T-67 we used EmergencyService.triggerEmergency which uses Cloud Functions.
+    // So only read access by owner is strictly needed for history, but let's allow read if uid matches.
+    match /emergencies/{emergencyId} {
+      allow read: if request.auth != null && resource.data.uid == request.auth.uid;
+      // We do not allow direct client writes to emergencies collection to prevent tampering.
+      allow write: if false; 
+    }
+  }
+}

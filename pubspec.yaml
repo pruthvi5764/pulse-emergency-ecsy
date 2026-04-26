@@ -1,0 +1,82 @@
+name: lifeline_nexus
+description: "Lifeline Nexus — AI-powered emergency response system for the Google Solution Challenge."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  flutter_riverpod: ^3.3.1
+
+  # AI & Media
+  speech_to_text: ^7.3.0
+  camera: ^0.12.0+1
+
+  # Location & Maps
+  geolocator: ^14.0.2
+  google_maps_flutter: ^2.17.0
+
+  # Firebase
+  firebase_core: ^3.15.2
+  firebase_auth: ^5.7.0
+  firebase_app_check: ^0.3.1
+  cloud_firestore: ^5.6.3
+  firebase_storage: ^12.4.1
+  cloud_functions: ^5.2.0
+  google_sign_in: ^7.2.0
+
+  # AI provider
+  # NOTE: Client-side Gemini calls expose the API key. Primary AI calls must go
+  # through Cloud Functions (T-39). This package is kept only for potential
+  # on-device fallback use — never pass the raw API key from the client.
+  google_generative_ai: ^0.4.6
+
+  # Media / File Picker
+  image_picker: ^1.1.2
+
+  # Typography (high-legibility font for emergency UI — T-09)
+  google_fonts: ^6.2.1
+
+  # Utilities
+  flutter_dotenv: ^6.0.1
+  url_launcher: ^6.3.0
+  shared_preferences: ^2.3.2
+  vibration: ^3.1.8
+  audioplayers: ^6.1.0
+  qr_flutter: ^4.1.0
+
+  # Secure local storage for offline MedicalProfile cache (T-71)
+  # Encrypts data at rest on both Android (EncryptedSharedPreferences) and iOS (Keychain)
+  flutter_secure_storage: ^9.2.2
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Required by T-84: Flutter integration tests
+  integration_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+  fake_cloud_firestore: ^3.1.0
+  mockito: ^5.6.4
+  build_runner: ^2.14.0
+
+flutter:
+  uses-material-design: true
+
+  # IMPORTANT: .env must NOT be listed here — it would be bundled inside the APK
+  # and extractable by anyone. Inject API keys via --dart-define-from-file at build time.
+  # assets:
+  #   - .env   ← REMOVED (security vulnerability)
+
+  assets:
+    - assets/images/   # Google logo for sign-in button, app branding assets
