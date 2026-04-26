@@ -1,8 +1,8 @@
-# Lifeline Nexus 🚨
+# pulse
 
 **Intelligent Emergency Response & Medical Dispatch System**
 
-Lifeline Nexus is an AI-powered Flutter application designed to bridge the gap between emergency victims, bystanders, and first responders. By leveraging Google's Gemini 1.5 Flash algorithm, the Google Places API, and Twilio's dispatch ecosystem, Lifeline Nexus ensures that critical medical data reaches the *right* hospital before the ambulance even arrives.
+pulse is an AI-powered Flutter application designed to bridge the gap between emergency victims, bystanders, and first responders. By leveraging Google's Gemini 1.5 Flash algorithm, the Google Places API, and Twilio's dispatch ecosystem, Lifeline Nexus ensures that critical medical data reaches the *right* hospital before the ambulance even arrives.
 
 ## Features ✨
 
@@ -32,33 +32,6 @@ A secure, encrypted local and cloud repository for your critical medical profile
 - **APIs:** Google Maps SDK, Routes API, Places API
 - **Comms:** Twilio (Voice & WhatsApp API), SendGrid (Email)
 
-## Setup Instructions 🚀
-
-### 1. Environment Variables
-Create a `.env` file in the root directory:
-```
-MAPS_API_KEY=your_google_maps_api_key
-GEMINI_API_KEY=your_gemini_api_key
-```
-
-### 2. Firebase Configuration
-Ensure your `google-services.json` (Android) and `GoogleService-Info.plist` (iOS) are placed in their respective directories. You must enable:
-- Authentication (Google Sign-In)
-- Firestore Database
-- Cloud Storage
-- App Check (Play Integrity & DeviceCheck)
-
-### 3. Cloud Functions Secrets
-Set up the following secrets in Google Cloud Secret Manager for the Firebase project:
-- `MAPS_API_KEY`, `GEMINI_API_KEY`
-- `TWILIO_SID`, `TWILIO_AUTH`, `EMERGENCY_FROM_NUMBER`
-- `SENDGRID_KEY`
-
-### 4. Run the App
-```bash
-flutter pub get
-flutter run
-```
 
 ---
 *Built for the Google Solution Challenge 2026. Empowering communities with AI-driven emergency response.*
